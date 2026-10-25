@@ -1,5 +1,5 @@
 # えいご道場（Cloudflare Workers + D1）
-name = "eigo-dojo"
+name = "english-app-child"
 main = "src/index.js"
 compatibility_date = "2026-10-01"
 
@@ -12,7 +12,7 @@ run_worker_first = ["/api/*"]
 # データベース（D1）。database_id は、作成したD1のIDに置き換える（docs/deploy.md 参照）
 [[d1_databases]]
 binding = "DB"
-database_name = "eigo-dojo"
+database_name = "english-app-child"
 database_id = "REPLACE_WITH_YOUR_D1_DATABASE_ID"
 
 # 設定（秘密ではないもの）。秘密の GEMINI_API_KEY と SETUP_TOKEN は、ダッシュボードで「シークレット」として登録する

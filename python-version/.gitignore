@@ -1,0 +1,17 @@
+# 秘密情報（絶対にGitHubへ上げない）
+.env
+*.env
+!.env.example
+# 生徒の記録が入るデータベース
+data/*.db
+data/*.db-*
+*.db
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+# 生成物
+sample.csv
+*.log
+.DS_Store

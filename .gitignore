@@ -1,0 +1,15 @@
+# 秘密情報（絶対にGitHubへ上げない）
+.env
+.dev.vars
+*.env
+!.env.example
+# 手元の確認用データ
+*.db
+*.db-*
+node_modules/
+.wrangler/
+.DS_Store
+# Python版の生成物
+python-version/data/*.db*
+python-version/.env
+__pycache__/

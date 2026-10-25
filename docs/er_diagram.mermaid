@@ -1,0 +1,106 @@
+erDiagram
+    users {
+        int id PK
+        text login_id UK "管理者が発行するID"
+        text password_hash "PBKDF2（平文は保存しない）"
+        text role "admin / student"
+        text label "表示名（本名でなくニックネーム推奨）"
+        int is_active
+        text created_at
+    }
+    sessions {
+        text token_hash PK "ログイン状態（ハッシュ化して保存）"
+        int user_id FK
+        text expires_at
+    }
+    levels {
+        int id PK
+        text code UK "k20〜k1, d1〜d20"
+        int total "登録問題数（集計の読み取りを減らすため保存）"
+        int max_seq "最大の問題番号"
+        text name UK "20級〜1級, 初段〜20段"
+        text kind "kyu / dan"
+        int order_no UK "1〜40（進む順番）"
+    }
+    questions {
+        int id PK
+        int level_id FK
+        int seq "問題番号 1〜40"
+        text en_text "英文"
+        text ja_text "和文"
+        text target_en "空欄にする英単語"
+        text target_ja "空欄にする日本語"
+        text grammar_note "文法メモ"
+    }
+    progress {
+        int user_id PK, FK
+        int level_id PK, FK
+        text direction PK "en2ja / ja2en"
+        int next_seq "続きの問題番号"
+    }
+    rounds {
+        int id PK
+        int user_id FK
+        int level_id FK
+        text direction "en2ja / ja2en"
+        int start_seq "5問ずつ出題する先頭番号"
+        text stage "answer / fillin / review / done / abandoned"
+        text summary_json "覚えるポイントと単語リスト"
+        text created_at
+        text finished_at
+    }
+    round_questions {
+        int id PK
+        int round_id FK
+        int question_id FK
+        int position
+        int s1_ok "本文の正誤"
+        int s2_ok "空欄補充の正誤"
+        int s3_ok "確認テストの正誤"
+        text explanation "AIの解説"
+        text test_prompt "確認テストの問題"
+        text test_answer "確認テストの正解"
+    }
+    attempts {
+        int id PK
+        int round_id FK
+        int user_id FK
+        int question_id FK
+        int stage "1本文 / 2空欄 / 3確認テスト"
+        text prompt_text "出した問題（その時点の内容を保存）"
+        text expected_text "正解"
+        text answer_text "生徒の回答"
+        text verdict "correct / close / wrong"
+        int is_correct
+        text judged_by "exact / ai / fallback"
+        text feedback_text
+        text created_at
+    }
+    ai_logs {
+        int id PK
+        text purpose
+        text model
+        int ok
+        int latency_ms
+        text error
+        text created_at
+    }
+    login_attempts {
+        int id PK
+        text login_id
+        text ip
+        int ts
+        int ok
+    }
+
+    users ||--o{ sessions : "ログイン中"
+    users ||--o{ rounds : "5問セットを解く"
+    users ||--o{ progress : "続きの位置"
+    users ||--o{ attempts : "回答する"
+    levels ||--|{ questions : "各級・段に最大40問"
+    levels ||--o{ rounds : "出題範囲"
+    levels ||--o{ progress : ""
+    rounds ||--|{ round_questions : "最大5問"
+    questions ||--o{ round_questions : "出題される"
+    rounds ||--o{ attempts : "回答の記録"
+    questions ||--o{ attempts : "どの問題か"

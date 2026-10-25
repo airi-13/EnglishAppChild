@@ -1,0 +1,3 @@
+# 手元で wrangler dev を使うときの設定例（このファイルを .dev.vars にコピーして使う。.dev.vars はGitHubに上げない）
+GEMINI_API_KEY=
+SETUP_TOKEN=

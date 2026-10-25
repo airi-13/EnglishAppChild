@@ -1,0 +1,13 @@
+{
+  "name": "eigo-dojo",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "えいご道場（Cloudflare Workers + D1 版）",
+  "scripts": {
+    "test": "node --test --test-concurrency=1 \"test/*.test.mjs\"",
+    "dev": "node dev/server.mjs",
+    "gen:migration": "node scripts/gen-migration.mjs",
+    "gen:sample": "python3 scripts/make_sample_csv.py public/sample_questions.csv"
+  }
+}

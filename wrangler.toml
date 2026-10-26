@@ -12,8 +12,8 @@ run_worker_first = ["/api/*"]
 # データベース（D1）。database_id は、作成したD1のIDに置き換える（docs/deploy.md 参照）
 [[d1_databases]]
 binding = "DB"
-database_name = "english-app-child"
-database_id = "REPLACE_WITH_YOUR_D1_DATABASE_ID"
+database_name = "english_app_child"
+database_id = "57fce339-ada7-4222-a5aa-85e03c165173"
 
 # 設定（秘密ではないもの）。秘密の GEMINI_API_KEY と SETUP_TOKEN は、ダッシュボードで「シークレット」として登録する
 [vars]
